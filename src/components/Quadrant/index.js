@@ -20,11 +20,17 @@ class Quadrant extends Component {
     ev.preventDefault();
   };
 
+  handleDragStart = (ev, data) => {
+    ev.dataTransfer.setData("data", JSON.stringify(data));
+  };
+
   render() {
     return (
       <div className="quadrant" onDrop={this.handleOnDrop} onDragOver={this.handleOnDragOver}>
         {this.props.ideas.map((idea, i) => {
-          return <div key={i}>{idea.text}</div>
+          return <div key={i} draggable={true} onDragStart={(ev) => {
+            this.handleDragStart(ev, idea)
+          }}>{idea.text}</div>
         })}
       </div>
     );

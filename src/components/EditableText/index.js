@@ -33,7 +33,6 @@ class EditableText extends Component {
 
   handleDragStart = (ev) => {
     const data = this.props.data;
-    console.log(data);
     ev.dataTransfer.setData("data", JSON.stringify(data));
   };
 

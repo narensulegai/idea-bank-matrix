@@ -16,11 +16,9 @@ import _ from 'lodash';
 
 const useStyles = makeStyles(theme => ({}));
 
-const functionHierarchy = [];
-
 class App extends Component {
   state = {
-    functionHierarchy,
+    functionHierarchy: [],
     ideaQuadrant: {},
     ideasByQuadrants: [[], [], [], [], []]
   };
@@ -33,18 +31,24 @@ class App extends Component {
     this.setState({functionHierarchy});
   };
 
-  handleIdeaQuadrantChange = async (quadrant, idea) => {
-    await this.updateQuadrantInFunctionHierarchy(quadrant, idea);
-    return await this.updateIdeaQuadrant(quadrant, idea);
+  extractAllIdeas = (fh) => {
+    return fh.reduce((fhm, f) => {
+      return [...fhm, ...f.ideas, ...this.extractAllIdeas(f.children)];
+    }, []);
   };
 
-  updateIdeaQuadrant = async (quadrant, idea) => {
-    //TODO: this should be flatened from from this.state.functionHierarchy
-    const ideaQuadrant = Object.assign({}, this.state.ideaQuadrant);
-    ideaQuadrant[idea.id] = quadrant;
-    const ideasByQuadrants = _.cloneDeep(this.state.ideasByQuadrants);
-    ideasByQuadrants[quadrant].push(idea);
-    return await this.setState({ideaQuadrant, ideasByQuadrants});
+  handleIdeaQuadrantChange = async (quadrant, idea) => {
+    await this.updateQuadrantInFunctionHierarchy(quadrant, idea);
+    const allIdeas = this.extractAllIdeas(this.state.functionHierarchy);
+    return await this.updateIdeaQuadrant(allIdeas);
+  };
+
+  updateIdeaQuadrant = async (allIdeas) => {
+    const ideasByQuadrants = allIdeas.reduce((m, idea) => {
+      if (idea.quadrant !== null) m[idea.quadrant].push(idea);
+      return m;
+    }, [[], [], [], []]);
+    return await this.setState({ideasByQuadrants});
   };
 
   updateQuadrantInFunctionHierarchy = async (quadrant, idea) => {
