@@ -44,3 +44,7 @@
     min-height: 200px;
     min-width: 200px;
 }
+
+*[draggable=true] {
+    cursor: grab;
+}
