@@ -1,10 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
+import Quadrant from "../Quadrant";
 
 class CostImpactGrid extends Component {
 
   state = {
-    gridType: 1
+    gridType: 1,
   };
 
   constructor(props) {
@@ -18,11 +19,15 @@ class CostImpactGrid extends Component {
     this.setState({gridType})
   }
 
+  handleIdeaDrop = (quadrant, idea) => {
+    this.props.onChange(quadrant, idea);
+  };
+
   render() {
     return (
       <Fragment>
         <div>
-          Cost Impact Grid
+          Cost vs Impact Grid
         </div>
         <div>
           <button style={{backgroundColor: this.state.gridType === 1 ? 'grey' : null}}
@@ -35,10 +40,10 @@ class CostImpactGrid extends Component {
           </button>
         </div>
         <div className="grid">
-          <div className="quadrant"></div>
-          <div className="quadrant"></div>
-          <div className="quadrant"></div>
-          <div className="quadrant"></div>
+          <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 0)} ideas={this.props.ideasByQuadrants[0]}/>
+          <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 1)} ideas={this.props.ideasByQuadrants[1]}/>
+          <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 2)} ideas={this.props.ideasByQuadrants[2]}/>
+          <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 3)} ideas={this.props.ideasByQuadrants[3]}/>
         </div>
       </Fragment>
 
@@ -46,6 +51,9 @@ class CostImpactGrid extends Component {
   }
 }
 
-CostImpactGrid.propTypes = {};
+CostImpactGrid.propTypes = {
+  ideaQuadrant: PropTypes.object,
+  onChange: PropTypes.func
+};
 
 export default CostImpactGrid;

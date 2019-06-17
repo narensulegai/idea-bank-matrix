@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import EditableText from "../EditableText";
 
 class Ideas extends Component {
-  state = {ideas: ['idea1', 'idea2'], newIdea: ''};
 
   constructor(props) {
     super(props);
@@ -11,36 +11,48 @@ class Ideas extends Component {
   componentDidMount() {
   }
 
-  handleIdeaChange = (index, e) => {
-    const ideas = this.state.ideas.slice(0);
-    ideas[index] = e.target.value;
-    this.setState({ideas});
+  handleIdeaChange = (index, value) => {
+    const ideas = this.props.ideas.slice(0);
+    ideas[index].text = value;
+    this.props.onChange(ideas);
   };
 
   handleAddNewIdea = () => {
-    const ideas = this.state.ideas.slice(0);
-    ideas.push(this.refs.newIdea.value);
-    this.setState({ideas});
+    const id = Date.now() + parseInt(Math.random());
+    const ideas = this.props.ideas.slice(0);
+    ideas.push({id, text: this.refs.newIdea.value, quadrant: null});
+    this.refs.newIdea.value = '';
+    this.props.onChange(ideas);
+  };
+
+  handleOnIdeaDrag = (i) => {
+    return this.props.ideas[i];
   };
 
   render() {
     return (
       <div>
         <div>
-          {this.state.ideas.map((idea, i) => {
+          {this.props.ideas.map((idea, i) => {
             return <div key={i}>
-              <input type="text"
-                     onChange={(e) => {
-                       this.handleIdeaChange(i, e)
-                     }}
-                     value={idea}/>
+              <EditableText draggable={true}
+                            data={idea}
+                            onDrag={() => {
+                              this.handleOnIdeaDrag(i)
+                            }}
+                            onChange={(e) => {
+                              this.handleIdeaChange(i, e)
+                            }}
+                            value={idea.text}
+              />
+              <span>{idea.quadrant}</span>
             </div>
           })}
         </div>
         <div>
           <input type="text" ref="newIdea"/>
           <button onClick={this.handleAddNewIdea}>
-            Add Ideas
+            Add Idea
           </button>
         </div>
       </div>
@@ -49,6 +61,9 @@ class Ideas extends Component {
   }
 }
 
-Ideas.propTypes = {};
+Ideas.propTypes = {
+  ideas: PropTypes.array,
+  onChange: PropTypes.func
+};
 
 export default Ideas;

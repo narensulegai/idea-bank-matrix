@@ -19,7 +19,6 @@ class EditableText extends Component {
   }
 
   componentDidMount() {
-    console.log('Component did mount');
   }
 
   handleSave = () => {
@@ -32,6 +31,12 @@ class EditableText extends Component {
     this.props.onDelete();
   };
 
+  handleDragStart = (ev) => {
+    const data = this.props.data;
+    console.log(data);
+    ev.dataTransfer.setData("data", JSON.stringify(data));
+  };
+
   render() {
     return (
       <Fragment>
@@ -40,13 +45,22 @@ class EditableText extends Component {
             <input type="text" ref="inputRef" defaultValue={this.props.value}/>
             <button onClick={this.handleSave}>Save</button>
           </Fragment>
-          : <span>{this.props.value}</span>}
+          : <span draggable={this.props.draggable} onDragStart={this.handleDragStart}>{this.props.value}</span>}
         <button onClick={this.handleDelete}>Delete</button>
       </Fragment>
     );
   }
 }
 
-EditableText.propTypes = {};
+EditableText.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+  draggable: PropTypes.bool,
+  data: PropTypes.any
+};
+
+EditableText.defaultProps = {
+  draggable: false
+};
 
 export default EditableText;
