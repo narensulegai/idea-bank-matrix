@@ -28,7 +28,7 @@ class Quadrant extends Component {
     return (
       <div className="quadrant" onDrop={this.handleOnDrop} onDragOver={this.handleOnDragOver}>
         {this.props.ideas.map((idea, i) => {
-          return <div key={i} draggable={true} onDragStart={(ev) => {
+          return <div className="quadrant-idea" key={i} draggable={true} onDragStart={(ev) => {
             this.handleDragStart(ev, idea)
           }}>{idea.text}</div>
         })}

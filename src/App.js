@@ -78,10 +78,15 @@ class App extends Component {
           </Toolbar>
         </AppBar>
         <Container>
+          <div className="small-margin-top"/>
           <Grid container spacing={3}>
             <Grid item md={6}>
+              <Typography align="center" variant="h5">Function Ideas</Typography>
               <FunctionName functionHierarchy={this.state.functionHierarchy}
                             onChange={this.handleFunctionHierarchyChange}/>
+              {this.state.functionHierarchy.length === 0
+                ? <Typography align="center" variant="subtitle1">Please add a function name to start.</Typography>
+                : null}
             </Grid>
             <Grid item md={6}>
               <CostImpactGrid ideasByQuadrants={this.state.ideasByQuadrants}
