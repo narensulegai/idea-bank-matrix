@@ -38,6 +38,29 @@ class CostImpactGrid extends Component {
           <Tab label="3 X 3"/>
         </Tabs>
         <div className="grid">
+
+          {/*Sub labels*/}
+          <div className="q0-label">
+            <input className="quadrant-label-input" type="text" defaultValue="High"/>
+          </div>
+          <div className="q2-label-left">
+            <input className="quadrant-label-input" type="text" defaultValue="Low"/>
+          </div>
+          <div className="q2-label-bottom">
+            <input className="quadrant-label-input" type="text" defaultValue="High"/>
+          </div>
+          <div className="q3-label">
+            <input className="quadrant-label-input" type="text" defaultValue="Low"/>
+          </div>
+
+          {/*Main axis labels*/}
+          <div className="x-axis-label">
+            <input className="quadrant-label-input" type="text" defaultValue="Impact"/>
+          </div>
+          <div className="y-axis-label">
+            <input className="quadrant-label-input" type="text" defaultValue="Cost"/>
+          </div>
+
           <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 0)} ideas={this.props.ideasByQuadrants[0]}/>
           <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 1)} ideas={this.props.ideasByQuadrants[1]}/>
           <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 2)} ideas={this.props.ideasByQuadrants[2]}/>

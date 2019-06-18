@@ -32,6 +32,7 @@ class Quadrant extends Component {
             this.handleDragStart(ev, idea)
           }}>{idea.text}</div>
         })}
+        {this.props.labels}
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import './App.css';
+import './App.scss';
 import FunctionName from './components/FunctionName';
 import 'typeface-roboto';
 import AppBar from '@material-ui/core/AppBar';
