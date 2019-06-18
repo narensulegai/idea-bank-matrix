@@ -1,11 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import Quadrant from "../Quadrant";
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
 
 class CostImpactGrid extends Component {
 
   state = {
-    gridType: 1,
+    gridType: 0,
   };
 
   constructor(props) {
@@ -15,9 +18,9 @@ class CostImpactGrid extends Component {
   componentDidMount() {
   }
 
-  setGridType(gridType) {
+  setGridType = (ev, gridType) => {
     this.setState({gridType})
-  }
+  };
 
   handleIdeaDrop = (quadrant, idea) => {
     this.props.onChange(quadrant, idea);
@@ -26,19 +29,14 @@ class CostImpactGrid extends Component {
   render() {
     return (
       <Fragment>
-        <div>
-          Cost vs Impact Grid
-        </div>
-        <div>
-          <button style={{backgroundColor: this.state.gridType === 1 ? 'grey' : null}}
-                  onClick={this.setGridType.bind(this, 1)}>
-            2 X 2
-          </button>
-          <button style={{backgroundColor: this.state.gridType === 2 ? 'grey' : null}}
-                  onClick={this.setGridType.bind(this, 2)}>
-            3 X 3
-          </button>
-        </div>
+        <Typography align="center" variant="h5">Cost vs Impact Grid</Typography>
+        <Tabs value={this.state.gridType} onChange={this.setGridType}
+              indicatorColor="primary"
+              textColor="primary"
+              centered>
+          <Tab label="2 X 2"/>
+          <Tab label="3 X 3"/>
+        </Tabs>
         <div className="grid">
           <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 0)} ideas={this.props.ideasByQuadrants[0]}/>
           <Quadrant onIdeaDrop={this.handleIdeaDrop.bind(this, 1)} ideas={this.props.ideasByQuadrants[1]}/>
