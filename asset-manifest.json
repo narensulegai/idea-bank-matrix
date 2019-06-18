@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/narensulegai/idea-bank-matrix/static/css/main.9a8d6cb6.chunk.css",
+    "main.js": "/narensulegai/idea-bank-matrix/static/js/main.f663eb0d.chunk.js",
+    "main.js.map": "/narensulegai/idea-bank-matrix/static/js/main.f663eb0d.chunk.js.map",
+    "runtime~main.js": "/narensulegai/idea-bank-matrix/static/js/runtime~main.70c603ab.js",
+    "runtime~main.js.map": "/narensulegai/idea-bank-matrix/static/js/runtime~main.70c603ab.js.map",
+    "static/css/2.e947ba25.chunk.css": "/narensulegai/idea-bank-matrix/static/css/2.e947ba25.chunk.css",
+    "static/js/2.e0bbce9d.chunk.js": "/narensulegai/idea-bank-matrix/static/js/2.e0bbce9d.chunk.js",
+    "static/js/2.e0bbce9d.chunk.js.map": "/narensulegai/idea-bank-matrix/static/js/2.e0bbce9d.chunk.js.map",
+    "index.html": "/narensulegai/idea-bank-matrix/index.html",
+    "precache-manifest.bad3c7ee9776fd1f1ec19c8d8ae426f8.js": "/narensulegai/idea-bank-matrix/precache-manifest.bad3c7ee9776fd1f1ec19c8d8ae426f8.js",
+    "service-worker.js": "/narensulegai/idea-bank-matrix/service-worker.js",
+    "static/css/2.e947ba25.chunk.css.map": "/narensulegai/idea-bank-matrix/static/css/2.e947ba25.chunk.css.map",
+    "static/css/main.9a8d6cb6.chunk.css.map": "/narensulegai/idea-bank-matrix/static/css/main.9a8d6cb6.chunk.css.map",
+    "static/media/index.css": "/narensulegai/idea-bank-matrix/static/media/roboto-latin-900italic.bc833e72.woff"
+  }
+}
