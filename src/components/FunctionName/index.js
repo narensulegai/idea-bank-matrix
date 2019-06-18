@@ -2,9 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import EditableText from "../EditableText";
 import Ideas from "../Ideas";
-
+import TextField from '@material-ui/core/TextField';
+import AddIcon from '@material-ui/icons/Add';
+import {PaddedFab} from '../Styled';
 
 class FunctionName extends Component {
+
   state = {
     ideas: []
   };
@@ -23,11 +26,11 @@ class FunctionName extends Component {
   };
 
   handleAddNewFunction = () => {
-    const functionName = this.refs.newFunction.value;
+    const functionName = this.newFunction.value;
     const functionHierarchy = this.props.functionHierarchy.slice(0);
     functionHierarchy.push({name: functionName, children: [], ideas: []});
     this.props.onChange(functionHierarchy);
-    this.refs.newFunction.value = "";
+    this.newFunction.value = "";
   };
 
   handleFunctionNameDelete = (index) => {
@@ -64,28 +67,37 @@ class FunctionName extends Component {
                               }}
                 />
               </div>
-              <div>
-                <div>Ideas</div>
-                <Ideas ideas={ideas} onChange={(newIdeas) => {
-                  this.handleIdeasChange(i, newIdeas)
-                }}/>
-              </div>
-              <div>
+              <div>Ideas</div>
+              <Ideas ideas={ideas} onChange={(newIdeas) => {
+                this.handleIdeasChange(i, newIdeas)
+              }}/>
+              {false && <div>
                 <FunctionName
                   functionHierarchy={this.props.functionHierarchy[i].children}
                   onChange={(f) => {
                     this.handleChildFunctionHierarchyChange(f, i)
                   }}/>
-              </div>
+              </div>}
             </div>
           })}
         </div>
 
-        <div>
-          <input type="text" ref="newFunction"/>
-          <button onClick={this.handleAddNewFunction}>
-            Add Function
-          </button>
+        <div className="row">
+
+          <TextField
+            placeholder="HR, Finance, IT ..."
+            inputRef={(input) => {
+              this.newFunction = input;
+            }}
+            label="Function name"
+            defaultValue={this.props.value}
+            margin="none"
+            onBlur={this.handleSave}/>
+
+          <PaddedFab size="small" color="primary" onClick={this.handleAddNewFunction}>
+            <AddIcon/>
+          </PaddedFab>
+
         </div>
       </div>
     );

@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import './App.css';
 import FunctionName from './components/FunctionName';
 import 'typeface-roboto';
-import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import Grid from '@material-ui/core/Grid';
 import CostImpactGrid from "./components/CostImpactGrid";
 import _ from 'lodash';
-
-const useStyles = makeStyles(theme => ({}));
 
 class App extends Component {
   state = {
@@ -27,8 +22,9 @@ class App extends Component {
     super(props);
   }
 
-  handleFunctionHierarchyChange = (functionHierarchy) => {
-    this.setState({functionHierarchy});
+  handleFunctionHierarchyChange = async (functionHierarchy) => {
+    await this.setState({functionHierarchy});
+    return await this.refreshIdeaQuadrant();
   };
 
   extractAllIdeas = (fh) => {
@@ -36,11 +32,13 @@ class App extends Component {
       return [...fhm, ...f.ideas, ...this.extractAllIdeas(f.children)];
     }, []);
   };
-
-  handleIdeaQuadrantChange = async (quadrant, idea) => {
-    await this.updateQuadrantInFunctionHierarchy(quadrant, idea);
+  refreshIdeaQuadrant = async () => {
     const allIdeas = this.extractAllIdeas(this.state.functionHierarchy);
     return await this.updateIdeaQuadrant(allIdeas);
+  };
+  handleIdeaQuadrantChange = async (quadrant, idea) => {
+    await this.updateQuadrantInFunctionHierarchy(quadrant, idea);
+    return await this.refreshIdeaQuadrant();
   };
 
   updateIdeaQuadrant = async (allIdeas) => {

@@ -1,17 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import {makeStyles} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Done from '@material-ui/icons/Done';
+import DeleteIcon from '@material-ui/icons/Delete';
+import {PaddedFab} from '../Styled';
+import Fab from "@material-ui/core/Fab";
 
 class EditableText extends Component {
 
-  state = {editMode: true};
+  state = {editMode: false};
 
   constructor(props) {
     super(props);
@@ -21,9 +18,9 @@ class EditableText extends Component {
   componentDidMount() {
   }
 
-  handleSave = () => {
-    const inp = this.refs.inputRef.value;
-    this.setState({editMode: false});
+  handleSave = async () => {
+    const inp = this.input.value;
+    await this.toggleEdit();
     this.props.onChange(inp);
   };
 
@@ -36,16 +33,43 @@ class EditableText extends Component {
     ev.dataTransfer.setData("data", JSON.stringify(data));
   };
 
+  focusInput = async () => {
+    await this.toggleEdit();
+    this.input.focus();
+  };
+
+  toggleEdit = async () => {
+    return await this.setState({editMode: !this.state.editMode});
+  };
+
   render() {
     return (
       <Fragment>
         {this.state.editMode
-          ? <Fragment>
-            <input type="text" ref="inputRef" defaultValue={this.props.value}/>
-            <button onClick={this.handleSave}>Save</button>
-          </Fragment>
-          : <span draggable={this.props.draggable} onDragStart={this.handleDragStart}>{this.props.value}</span>}
-        <button onClick={this.handleDelete}>Delete</button>
+          ? <div className="row">
+            <TextField
+              inputRef={(input) => {
+                this.input = input;
+              }}
+              required
+              label="Function name"
+              defaultValue={this.props.value}
+              margin="none"
+              onBlur={this.handleSave}
+            />
+
+            <Fab size="small" color="primary" onClick={this.handleSave}>
+              <Done/>
+            </Fab>
+          </div>
+          : <div className="row">
+            <div draggable={this.props.draggable} onClick={this.focusInput} className="editable-text"
+                 onDragStart={this.handleDragStart}>
+              {this.props.value}
+            </div>
+            <Fab size="small" color="secondary" onClick={this.handleDelete}>
+              <DeleteIcon/>
+            </Fab></div>}
       </Fragment>
     );
   }
