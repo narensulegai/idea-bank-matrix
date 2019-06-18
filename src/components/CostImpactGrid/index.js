@@ -29,7 +29,7 @@ class CostImpactGrid extends Component {
   render() {
     return (
       <Fragment>
-        <Typography align="center" variant="h5">Cost Impact Grid</Typography>
+        <Typography align="center" variant="h5">Assessment Grid</Typography>
         <Tabs value={this.state.gridType} onChange={this.setGridType}
               indicatorColor="primary"
               textColor="primary"
