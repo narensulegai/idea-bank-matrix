@@ -4,7 +4,10 @@ import EditableText from "../EditableText";
 import Ideas from "../Ideas";
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
-import {PaddedFab} from '../Styled';
+import {PaddedPaper} from '../Styled';
+import Paper from '@material-ui/core/Paper';
+import Fab from "@material-ui/core/Fab";
+import Typography from '@material-ui/core/Typography';
 
 class FunctionName extends Component {
 
@@ -54,9 +57,29 @@ class FunctionName extends Component {
   render() {
     return (
       <div style={{paddingLeft: 20, paddingBottom: 20}}>
+
+        <div className="row small-margin-top">
+
+          <TextField
+            fullWidth={true}
+            placeholder="HR, Finance, IT ..."
+            inputRef={(input) => {
+              this.newFunction = input;
+            }}
+            label="Add a function"
+            defaultValue={this.props.value}
+            margin="none"
+            onBlur={this.handleSave}/>
+
+          <Fab size="small" color="primary" onClick={this.handleAddNewFunction}>
+            <AddIcon/>
+          </Fab>
+
+        </div>
+
         <div>
           {this.props.functionHierarchy.map(({name, ideas}, i) => {
-            return <div key={i}>
+            return <PaddedPaper key={i}>
               <div>
                 <EditableText value={name}
                               onChange={(name) => {
@@ -65,12 +88,17 @@ class FunctionName extends Component {
                               onDelete={() => {
                                 this.handleFunctionNameDelete(i)
                               }}
+                              label="Sub function name"
                 />
               </div>
-              <div>Ideas</div>
-              <Ideas ideas={ideas} onChange={(newIdeas) => {
-                this.handleIdeasChange(i, newIdeas)
-              }}/>
+              <PaddedPaper>
+                <Typography variant="h5" component="h3">
+                  Ideas
+                </Typography>
+                <Ideas ideas={ideas} onChange={(newIdeas) => {
+                  this.handleIdeasChange(i, newIdeas)
+                }}/>
+              </PaddedPaper>
               {false && <div>
                 <FunctionName
                   functionHierarchy={this.props.functionHierarchy[i].children}
@@ -78,27 +106,10 @@ class FunctionName extends Component {
                     this.handleChildFunctionHierarchyChange(f, i)
                   }}/>
               </div>}
-            </div>
+            </PaddedPaper>
           })}
         </div>
 
-        <div className="row">
-
-          <TextField
-            placeholder="HR, Finance, IT ..."
-            inputRef={(input) => {
-              this.newFunction = input;
-            }}
-            label="Function name"
-            defaultValue={this.props.value}
-            margin="none"
-            onBlur={this.handleSave}/>
-
-          <PaddedFab size="small" color="primary" onClick={this.handleAddNewFunction}>
-            <AddIcon/>
-          </PaddedFab>
-
-        </div>
       </div>
     );
   }

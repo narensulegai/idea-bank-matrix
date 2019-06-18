@@ -46,6 +46,7 @@ class Ideas extends Component {
           {this.props.ideas.map((idea, i) => {
             return <div key={i}>
               <EditableText draggable={true}
+                            label="Idea text"
                             data={idea}
                             onDrag={() => {
                               this.handleOnIdeaDrag(i)
@@ -65,6 +66,7 @@ class Ideas extends Component {
 
         <div className="row">
           <TextField
+            fullWidth={true}
             placeholder="Idea for function"
             inputRef={(input) => {
               this.newIdea = input;

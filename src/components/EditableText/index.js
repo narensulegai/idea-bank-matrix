@@ -46,13 +46,14 @@ class EditableText extends Component {
     return (
       <Fragment>
         {this.state.editMode
+
           ? <div className="row">
             <TextField
+              fullWidth={true}
               inputRef={(input) => {
                 this.input = input;
               }}
-              required
-              label="Function name"
+              label={this.props.label}
               defaultValue={this.props.value}
               margin="none"
               onBlur={this.handleSave}
@@ -62,6 +63,7 @@ class EditableText extends Component {
               <Done/>
             </Fab>
           </div>
+
           : <div className="row">
             <div draggable={this.props.draggable} onClick={this.focusInput} className="editable-text"
                  onDragStart={this.handleDragStart}>
@@ -79,7 +81,8 @@ EditableText.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
   draggable: PropTypes.bool,
-  data: PropTypes.any
+  data: PropTypes.any,
+  label: PropTypes.string
 };
 
 EditableText.defaultProps = {
