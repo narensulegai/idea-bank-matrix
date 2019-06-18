@@ -92,8 +92,8 @@ class FunctionName extends Component {
                 />
               </div>
               <PaddedPaper>
-                <Typography variant="h6" gutterBottom={false}>
-                  Ideas
+                <Typography variant="subtitle2" gutterBottom={false}>
+                  Add ideas for {name}
                 </Typography>
                 <Ideas ideas={ideas} onChange={(newIdeas) => {
                   this.handleIdeasChange(i, newIdeas)
