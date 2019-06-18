@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import DeleteIcon from '@material-ui/icons/Delete';
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import Typography from '@material-ui/core/Typography';
 
-class EditableText extends Component {
+class EditableIdeaText extends Component {
 
   state = {editMode: false};
+  quadrantText = ['Q12', 'Q22', 'Q11', 'Q21'];
 
   constructor(props) {
     super(props);
-
   }
 
   componentDidMount() {
@@ -25,6 +26,11 @@ class EditableText extends Component {
 
   handleDelete = () => {
     this.props.onDelete();
+  };
+
+  handleDragStart = (ev) => {
+    const data = this.props.idea;
+    ev.dataTransfer.setData("data", JSON.stringify(data));
   };
 
   focusInput = async () => {
@@ -52,33 +58,40 @@ class EditableText extends Component {
               margin="none"
               onBlur={this.handleSave}
             />
-
             <DoneIcon color="primary" onClick={this.handleSave}/>
           </div>
 
           : <div className="row">
-            <div onClick={this.focusInput} className="editable-text">
+            <div draggable={true} onClick={this.focusInput} className="editable-text"
+                 onDragStart={this.handleDragStart}>
               <div className="row">
-                <Typography variant="h5">
-                  &nbsp;&nbsp;{this.props.value}
+                <DragIndicatorIcon color="primary"/>
+                <Typography variant="subtitle1">
+                  {this.props.value}
                 </Typography>
               </div>
             </div>
-            <DeleteIcon color="secondary" onClick={this.handleDelete}/>
+            <div className="row">
+              {this.props.idea.quadrant === null
+                ? null
+                : <div className='quadrant-indicator'>
+                  {this.quadrantText[this.props.idea.quadrant]}
+                </div>}
+              <DeleteIcon color="secondary" onClick={this.handleDelete}/>
+            </div>
           </div>}
       </Fragment>
     );
   }
 }
 
-EditableText.propTypes = {
+EditableIdeaText.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string,
+  idea: PropTypes.any,
   label: PropTypes.string
 };
 
-EditableText.defaultProps = {
-  draggable: false
-};
+EditableIdeaText.defaultProps = {};
 
-export default EditableText;
+export default EditableIdeaText;

@@ -88,18 +88,18 @@ class FunctionName extends Component {
                               onDelete={() => {
                                 this.handleFunctionNameDelete(i)
                               }}
-                              label="Sub function name"
+                              label="Function name"
                 />
               </div>
               <PaddedPaper>
-                <Typography variant="h5" component="h3">
+                <Typography variant="h6" gutterBottom={false}>
                   Ideas
                 </Typography>
                 <Ideas ideas={ideas} onChange={(newIdeas) => {
                   this.handleIdeasChange(i, newIdeas)
                 }}/>
               </PaddedPaper>
-              {false && <div>
+              {<div>
                 <FunctionName
                   functionHierarchy={this.props.functionHierarchy[i].children}
                   onChange={(f) => {
