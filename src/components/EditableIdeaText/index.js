@@ -26,7 +26,7 @@ class EditableIdeaText extends Component {
   }
 
   handleSave = async () => {
-    const inp = this.refs.ideaText.input.value;
+    const inp = this.refs.ideaText.input.refs.input.value;
     await this.toggleEdit();
     this.props.onChange(inp);
   };
@@ -42,7 +42,7 @@ class EditableIdeaText extends Component {
 
   focusInput = async () => {
     await this.toggleEdit();
-    this.refs.ideaText.input.focus();
+    this.refs.ideaText.input.refs.input.focus();
   };
 
   toggleEdit = async () => {
@@ -58,6 +58,7 @@ class EditableIdeaText extends Component {
             <TextField
               fullWidth={true}
               ref="ideaText"
+              multiLine={true}
               hintText={this.props.label}
               defaultValue={this.props.value}
             />
@@ -69,7 +70,7 @@ class EditableIdeaText extends Component {
                  onDragStart={this.handleDragStart}>
               <div className="row small-margin-top">
                 <DragIndicatorIcon/>
-                <pre>{this.props.value}</pre>
+                <div className="idea-text">{this.props.value}</div>
               </div>
             </div>
             <div className="row">

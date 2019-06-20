@@ -110,6 +110,12 @@ h4 {
   font-weight: bolder;
 }
 
+.idea-text {
+  white-space: pre-wrap;
+  font-family: monospace;
+  display: inline-block;
+}
+
 .row {
   display: flex;
   justify-content: space-between;
