@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Quadrant from "../Quadrant";
-import {Tabs, Tab} from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 
 const GridType0 = (props) => {
