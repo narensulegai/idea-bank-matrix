@@ -37,7 +37,8 @@ class Quadrant extends Component {
                       onDragStart={(ev) => {
                         this.handleDragStart(ev, idea)
                       }}
-                      style={{top: idea.position.top, left: idea.position.left}}>
+                      style={{top: idea.position.top, left: idea.position.left}}
+                      title={idea.text}>
             {idea.text}
           </div>
         })}
