@@ -31,8 +31,8 @@ const GridType0 = (props) => {
 
     {[0, 1, 2, 3].map((quadrantIndex, i) => {
       return <Quadrant key={i}
-                       onIdeaDrop={(idea) => {
-                         props.onDrop(quadrantIndex, idea)
+                       onIdeaDrop={(idea, position) => {
+                         props.onDrop(quadrantIndex, position, idea)
                        }}
                        ideas={props.ideasByQuadrants[quadrantIndex]}/>
     })}
@@ -61,8 +61,8 @@ class CostImpactGrid extends Component {
     this.setState({gridType})
   };
 
-  handleIdeaDrop = (quadrant, idea) => {
-    this.props.onChange(quadrant, idea);
+  handleIdeaDrop = (quadrant, position, idea) => {
+    this.props.onChange(quadrant, position, idea);
   };
 
   render() {

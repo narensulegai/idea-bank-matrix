@@ -23,7 +23,7 @@ class Ideas extends Component {
   handleAddNewIdea = () => {
     const id = Date.now() + parseInt(Math.random());
     const ideas = this.props.ideas.slice(0);
-    ideas.push({id, text: this.refs.newIdea.input.refs.input.value, quadrant: null});
+    ideas.push({id, text: this.refs.newIdea.input.refs.input.value, quadrant: null, position: null});
     this.refs.newIdea.input.refs.input.value = ''; //check this
     this.props.onChange(ideas);
   };

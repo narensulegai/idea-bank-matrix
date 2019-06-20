@@ -12,8 +12,11 @@ class Quadrant extends Component {
 
   handleOnDrop = (ev) => {
     ev.preventDefault();
+    const targetRect = ev.target.getBoundingClientRect();
+    const top = ev.clientY - targetRect.top;
+    const left = ev.clientX - targetRect.left;
     const data = JSON.parse(ev.dataTransfer.getData("data"));
-    this.props.onIdeaDrop(data);
+    this.props.onIdeaDrop(data, {top, left});
   };
 
   handleOnDragOver = (ev) => {
@@ -28,9 +31,15 @@ class Quadrant extends Component {
     return (
       <div className="quadrant" onDrop={this.handleOnDrop} onDragOver={this.handleOnDragOver}>
         {this.props.ideas.map((idea, i) => {
-          return <div className="quadrant-idea" key={i} draggable={true} onDragStart={(ev) => {
-            this.handleDragStart(ev, idea)
-          }}>{idea.text}</div>
+          return <div className="quadrant-idea"
+                      key={i}
+                      draggable={true}
+                      onDragStart={(ev) => {
+                        this.handleDragStart(ev, idea)
+                      }}
+                      style={{top: idea.position.top, left: idea.position.left}}>
+            {idea.text.slice(0, 4)}...
+          </div>
         })}
         {this.props.labels}
       </div>

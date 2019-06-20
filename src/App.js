@@ -32,8 +32,8 @@ class App extends Component {
     const allIdeas = this.extractAllIdeas(this.state.functionHierarchy);
     return await this.updateIdeaQuadrant(allIdeas);
   };
-  handleIdeaQuadrantChange = async (quadrant, idea) => {
-    await this.updateQuadrantInFunctionHierarchy(quadrant, idea);
+  handleIdeaQuadrantChange = async (quadrant, position, idea) => {
+    await this.updateQuadrantInFunctionHierarchy(quadrant, position, idea);
     return await this.refreshIdeaQuadrant();
   };
 
@@ -45,11 +45,12 @@ class App extends Component {
     return await this.setState({ideasByQuadrants});
   };
 
-  updateQuadrantInFunctionHierarchy = async (quadrant, idea) => {
+  updateQuadrantInFunctionHierarchy = async (quadrant, position, idea) => {
     const updateInIdeaList = (ideas) => { //TODO : break when changed
       ideas.forEach(i => {
         if (i.id === idea.id) {
           i.quadrant = quadrant;
+          i.position = position;
         }
       });
     };
