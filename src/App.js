@@ -1,13 +1,9 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './App.scss';
 import FunctionName from './components/FunctionName';
-import 'typeface-roboto';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import AppBar from 'material-ui/AppBar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CostImpactGrid from "./components/CostImpactGrid";
 import _ from 'lodash';
 
@@ -69,32 +65,25 @@ class App extends Component {
   render() {
 
     return (
-      <Fragment>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h5">
-              IdeaBank Workshop
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Container>
-          <div className="small-margin-top"/>
-          <Grid container spacing={3}>
-            <Grid item md={6}>
-              <Typography align="center" variant="h5">Function Ideas</Typography>
+      <MuiThemeProvider>
+        <div className="ideabank-workshop">
+          <AppBar title="IdeaBank Workshop" iconElementLeft={<div/>}/>
+          <div className='main-layout'>
+            <div className="function-name-container">
+              <h2>Function Ideas</h2>
               <FunctionName functionHierarchy={this.state.functionHierarchy}
                             onChange={this.handleFunctionHierarchyChange}/>
               {this.state.functionHierarchy.length === 0
-                ? <Typography align="center" variant="subtitle1">Please add a function name to start.</Typography>
+                ? <div className="center">Please add a function name to start.</div>
                 : null}
-            </Grid>
-            <Grid item md={6}>
+            </div>
+            <div className="cost-impact-grid-container">
               <CostImpactGrid ideasByQuadrants={this.state.ideasByQuadrants}
                               onChange={this.handleIdeaQuadrantChange}/>
-            </Grid>
-          </Grid>
-        </Container>
-      </Fragment>
+            </div>
+          </div>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

@@ -1,9 +1,8 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import DoneIcon from '@material-ui/icons/Done';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Typography from '@material-ui/core/Typography';
+import TextField from 'material-ui/TextField';
+import DoneIcon from 'material-ui/svg-icons/action/done';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
 
 class EditableText extends Component {
 
@@ -11,14 +10,13 @@ class EditableText extends Component {
 
   constructor(props) {
     super(props);
-
   }
 
   componentDidMount() {
   }
 
   handleSave = async () => {
-    const inp = this.input.value;
+    const inp = this.refs.inputText.input.value;
     await this.toggleEdit();
     this.props.onChange(inp);
   };
@@ -29,7 +27,7 @@ class EditableText extends Component {
 
   focusInput = async () => {
     await this.toggleEdit();
-    this.input.focus();
+    this.refs.inputText.input.focus();
   };
 
   toggleEdit = async () => {
@@ -38,19 +36,15 @@ class EditableText extends Component {
 
   render() {
     return (
-      <Fragment>
+      <div>
         {this.state.editMode
 
           ? <div className="row">
             <TextField
               fullWidth={true}
-              inputRef={(input) => {
-                this.input = input;
-              }}
-              placeholder={this.props.label}
+              ref="inputText"
+              hintText={this.props.label}
               defaultValue={this.props.value}
-              margin="none"
-              onBlur={this.handleSave}
             />
 
             <DoneIcon color="primary" onClick={this.handleSave}/>
@@ -59,14 +53,12 @@ class EditableText extends Component {
           : <div className="row">
             <div onClick={this.focusInput} className="editable-text">
               <div className="row">
-                <Typography variant="h5">
-                  &nbsp;&nbsp;{this.props.value}
-                </Typography>
+                <h4>{this.props.value}</h4>
               </div>
             </div>
             <DeleteIcon color="secondary" onClick={this.handleDelete}/>
           </div>}
-      </Fragment>
+      </div>
     );
   }
 }

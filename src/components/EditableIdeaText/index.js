@@ -1,10 +1,17 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import DoneIcon from '@material-ui/icons/Done';
-import DeleteIcon from '@material-ui/icons/Delete';
-import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
-import Typography from '@material-ui/core/Typography';
+import TextField from 'material-ui/TextField';
+import DoneIcon from 'material-ui/svg-icons/action/done';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import SvgIcon from 'material-ui/SvgIcon';
+
+const DragIndicatorIcon = (props) => (
+  <SvgIcon {...props}>
+    <path
+      d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+  </SvgIcon>
+);
+
 
 class EditableIdeaText extends Component {
 
@@ -19,7 +26,7 @@ class EditableIdeaText extends Component {
   }
 
   handleSave = async () => {
-    const inp = this.input.value;
+    const inp = this.refs.ideaText.input.value;
     await this.toggleEdit();
     this.props.onChange(inp);
   };
@@ -35,7 +42,7 @@ class EditableIdeaText extends Component {
 
   focusInput = async () => {
     await this.toggleEdit();
-    this.input.focus();
+    this.refs.ideaText.input.focus();
   };
 
   toggleEdit = async () => {
@@ -44,19 +51,15 @@ class EditableIdeaText extends Component {
 
   render() {
     return (
-      <Fragment>
+      <div>
         {this.state.editMode
 
           ? <div className="row">
             <TextField
               fullWidth={true}
-              inputRef={(input) => {
-                this.input = input;
-              }}
-              placeholder={this.props.label}
+              ref="ideaText"
+              hintText={this.props.label}
               defaultValue={this.props.value}
-              margin="none"
-              onBlur={this.handleSave}
             />
             <DoneIcon color="primary" onClick={this.handleSave}/>
           </div>
@@ -64,11 +67,9 @@ class EditableIdeaText extends Component {
           : <div className="row">
             <div draggable={true} onClick={this.focusInput} className="editable-text"
                  onDragStart={this.handleDragStart}>
-              <div className="row">
-                <DragIndicatorIcon color="primary"/>
-                <Typography variant="subtitle1">
-                  {this.props.value}
-                </Typography>
+              <div className="row small-margin-top">
+                <DragIndicatorIcon/>
+                <pre>{this.props.value}</pre>
               </div>
             </div>
             <div className="row">
@@ -80,7 +81,7 @@ class EditableIdeaText extends Component {
               <DeleteIcon color="secondary" onClick={this.handleDelete}/>
             </div>
           </div>}
-      </Fragment>
+      </div>
     );
   }
 }

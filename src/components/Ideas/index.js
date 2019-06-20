@@ -1,9 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
+import TextField from 'material-ui/TextField';
 import * as _ from 'lodash';
-import Fab from "@material-ui/core/Fab";
-import AddIcon from '@material-ui/icons/Add';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import EditableIdeaText from "../EditableIdeaText";
 
 class Ideas extends Component {
@@ -24,8 +23,8 @@ class Ideas extends Component {
   handleAddNewIdea = () => {
     const id = Date.now() + parseInt(Math.random());
     const ideas = this.props.ideas.slice(0);
-    ideas.push({id, text: this.newIdea.value, quadrant: null});
-    this.newIdea.value = '';
+    ideas.push({id, text: this.refs.newIdea.input.refs.input.value, quadrant: null});
+    this.refs.newIdea.input.refs.input.value = ''; //check this
     this.props.onChange(ideas);
   };
 
@@ -64,14 +63,11 @@ class Ideas extends Component {
         <div className="row">
           <TextField
             fullWidth={true}
-            placeholder="Idea for function"
-            inputRef={(input) => {
-              this.newIdea = input;
-            }}
-            multiline
-            label="Idea text"
-            margin="none"/>
-          <AddIcon onClick={this.handleAddNewIdea} color="primary"/>
+            hintText="Idea for function"
+            ref="newIdea"
+            multiLine={true}
+            floatingLabelText="Idea text"/>
+          <ContentAdd onClick={this.handleAddNewIdea} primary="true"/>
         </div>
       </Fragment>
 

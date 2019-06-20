@@ -1,7 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.ideabank-workshop {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.center {
+  text-align: center;
+  margin: auto;
+}
+
+h2 {
+  font-size: 25px;
+  font-weight: lighter;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: lighter;
 }
 
 .grid {
@@ -91,6 +114,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.main-layout {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.cost-impact-grid-container, .function-name-container {
+  flex: 1;
+}
+
+.cost-impact-grid-container {
+}
+
+.function-name-container {
+  padding-left: 100px;
 }
 
 .small-margin-top {

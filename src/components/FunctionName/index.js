@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import EditableText from "../EditableText";
 import Ideas from "../Ideas";
-import TextField from '@material-ui/core/TextField';
-import AddIcon from '@material-ui/icons/Add';
-import {PaddedPaper} from '../Styled';
-import Paper from '@material-ui/core/Paper';
-import Fab from "@material-ui/core/Fab";
-import Typography from '@material-ui/core/Typography';
+import TextField from 'material-ui/TextField';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import {paperPadding} from '../Styled';
+import Paper from 'material-ui/Paper';
 
 class FunctionName extends Component {
 
@@ -29,11 +28,11 @@ class FunctionName extends Component {
   };
 
   handleAddNewFunction = () => {
-    const functionName = this.newFunction.value;
+    const functionName = this.refs.newFunction.input.value;
     const functionHierarchy = this.props.functionHierarchy.slice(0);
     functionHierarchy.push({name: functionName, children: [], ideas: []});
     this.props.onChange(functionHierarchy);
-    this.newFunction.value = "";
+    this.refs.newFunction.input.value = "";
   };
 
   handleFunctionNameDelete = (index) => {
@@ -56,30 +55,26 @@ class FunctionName extends Component {
 
   render() {
     return (
-      <div style={{paddingLeft: 20, paddingBottom: 20}}>
+      <div>
 
         <div className="row small-margin-top">
 
           <TextField
             fullWidth={true}
-            placeholder="HR, Finance, IT ..."
-            inputRef={(input) => {
-              this.newFunction = input;
-            }}
-            label="Add a function"
+            hintText="HR, Finance, IT ..."
+            ref='newFunction'
+            floatingLabelText="Add a function"
             defaultValue={this.props.value}
-            margin="none"
-            onBlur={this.handleSave}/>
-
-          <Fab size="small" color="primary" onClick={this.handleAddNewFunction}>
-            <AddIcon/>
-          </Fab>
+          />
+          <FloatingActionButton primary="true" mini onClick={this.handleAddNewFunction}>
+            <ContentAdd/>
+          </FloatingActionButton>
 
         </div>
 
         <div>
           {this.props.functionHierarchy.map(({name, ideas}, i) => {
-            return <PaddedPaper key={i}>
+            return <Paper key={i} style={paperPadding}>
               <div>
                 <EditableText value={name}
                               onChange={(name) => {
@@ -91,14 +86,14 @@ class FunctionName extends Component {
                               label="Function name"
                 />
               </div>
-              <PaddedPaper>
-                <Typography variant="subtitle2" gutterBottom={false}>
+              <Paper style={paperPadding}>
+                <h4>
                   Add ideas for {name}
-                </Typography>
+                </h4>
                 <Ideas ideas={ideas} onChange={(newIdeas) => {
                   this.handleIdeasChange(i, newIdeas)
                 }}/>
-              </PaddedPaper>
+              </Paper>
               {<div>
                 <FunctionName
                   functionHierarchy={this.props.functionHierarchy[i].children}
@@ -106,7 +101,7 @@ class FunctionName extends Component {
                     this.handleChildFunctionHierarchyChange(f, i)
                   }}/>
               </div>}
-            </PaddedPaper>
+            </Paper>
           })}
         </div>
 
