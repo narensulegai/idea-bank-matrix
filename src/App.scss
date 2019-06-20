@@ -151,13 +151,14 @@ h4 {
 }
 
 .quadrant-idea {
-  position: absolute;
+  //position: absolute;
   height: 20px;
-  width: 50px;
+  width: 150px;
   overflow: hidden;
   border: 1px solid grey;
   padding: 2px 5px;
   border-radius: 5px;
+  margin-top: 5px;
 }
 
 .grid .q2 {

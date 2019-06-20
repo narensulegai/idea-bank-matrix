@@ -38,7 +38,7 @@ class Quadrant extends Component {
                         this.handleDragStart(ev, idea)
                       }}
                       style={{top: idea.position.top, left: idea.position.left}}>
-            {idea.text.slice(0, 4)}...
+            {idea.text}
           </div>
         })}
         {this.props.labels}
