@@ -65,10 +65,10 @@ class EditableIdeaText extends Component {
             <DoneIcon color="primary" onClick={this.handleSave}/>
           </div>
 
-          : <div className="row">
+          : <div className="row small-margin-top">
             <div draggable={true} onClick={this.focusInput} className="editable-text"
                  onDragStart={this.handleDragStart}>
-              <div className="row small-margin-top">
+              <div className="row">
                 <DragIndicatorIcon/>
                 <div className="idea-text">{this.props.value}</div>
               </div>
